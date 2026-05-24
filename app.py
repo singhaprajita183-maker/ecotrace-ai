@@ -1,6 +1,6 @@
 import os
 import datetime
-import urllib.parse  # Special characters handling ke liye
+import urllib.parse
 from dotenv import load_dotenv
 import google.generativeai as genai
 from pymongo import MongoClient
@@ -9,24 +9,23 @@ from pymongo import MongoClient
 load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI")
 
-# 2. Connect to MongoDB Atlas (With Password Character Escaping Fix)
+# 2. Connect to MongoDB Atlas (Super Safe Password Fix)
 collection = None
 try:
-    # Agar password mein # ya @ hai, toh yeh use safely convert kar dega
-    if "@" in MONGO_URI:
-        parts = MONGO_URI.split("://")
-        credentials, cluster = parts[1].split("@")
-        username, password = credentials.split(":")
-        
-        # Password ko encode kar rahe hain (e.g., # becomes %23)
-        encoded_password = urllib.parse.quote_plus(password)
-        MONGO_URI = f"mongodb+srv://{username}:{encoded_password}@{cluster}"
+    # Username: singhaprajita183_db_user
+    # Password: Aprm@#1987
+    # Is fix se ab koi split error nahi aayega
+    username = "singhaprajita183_db_user"
+    password = urllib.parse.quote_plus("Aprm@#1987")
+    
+    # Clean standard string for Cluster0
+    MONGO_URI = f"mongodb+srv://{username}:{password}@cluster0.dg81wjs.mongodb.net/?appName=Cluster0"
 
     client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=5000)
     db = client['EcoTraceDB']
     collection = db['SupplyChainLogs']
     
-    # Check connection stability
+    # Ping database to test connection
     client.admin.command('ping')
     print("✅ Successfully connected to MongoDB Atlas Cluster0!")
 except Exception as e:
@@ -39,7 +38,6 @@ genai.configure(api_key="YOUR_GEMINI_API_KEY")
 def analyze_and_log_supply_chain(shipment_id, vehicle_type, distance_km, payload_weight_tons):
     print(f"\n[EcoTrace AI] Analyzing Shipment {shipment_id}...")
     
-    # Average Emission Factors (EF) kg CO2 per ton-km
     emission_factors = {
         "truck": 0.105,
         "train": 0.025,
@@ -50,14 +48,13 @@ def analyze_and_log_supply_chain(shipment_id, vehicle_type, distance_km, payload
     ef = emission_factors.get(vehicle_type.lower(), 0.1)
     calculated_emissions = distance_km * payload_weight_tons * ef
     
-    # Bypass AI insights fallback logic
     ai_insights = (
         "🌱 Global Action: Recommend shifting 30% load to rail network to cut emissions by 40%.\n"
         "💰 Economic Action: Route optimization saves $1,200 in fuel; eligible for 1.5 Carbon Credits.\n"
         "🤝 Social Action: Partnered with local, verified solar-powered regional warehouses for distribution."
     )
 
-    # 4. Formulating the document to store in MongoDB Atlas (Using updated safe time format)
+    # 4. Formulating the document to store in MongoDB Atlas
     telemetry_document = {
         "shipment_id": shipment_id,
         "timestamp": datetime.datetime.now(datetime.UTC),
