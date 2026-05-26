@@ -7,7 +7,71 @@ import google.generativeai as genai
 from pymongo import MongoClient
 
 # Page configuration
-st.set_page_config(page_title="EcoTrace AI: Advanced Supply Chain Agent", page_icon="🌿", layout="wide")
+st.set_page_config(page_title="EcoTrace AI: Advanced Cyber Dashboard", page_icon="🌿", layout="wide")
+
+# --- CUSTOM CYBERPUNK THEME (BLACK, BLUE, RED COMBO) ---
+st.markdown("""
+    <style>
+    /* Main Background & Text Color */
+    .stApp {
+        background-color: #0d0f12 !important;
+        color: #e0e6ed !important;
+    }
+    
+    /* Headings Customization (Electric Blue with subtle shadow) */
+    h1, h2, h3 {
+        color: #00d2ff !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-shadow: 0px 0px 10px rgba(0, 210, 255, 0.3);
+    }
+    
+    /* Input Boxes Background and Borders */
+    .stTextInput div div input, .stSelectbox div div div, .stNumberInput div div input {
+        background-color: #1a1f26 !important;
+        color: #ffffff !important;
+        border: 1px solid #00d2ff !important;
+        border-radius: 8px !important;
+    }
+    
+    /* Primary Button (Neon Red Accent) */
+    .stButton>button {
+        background-color: #ff0055 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-weight: bold !important;
+        box-shadow: 0px 0px 15px rgba(255, 0, 85, 0.4) !important;
+        transition: 0.3s ease-in-out !important;
+    }
+    .stButton>button:hover {
+        background-color: #d60044 !important;
+        box-shadow: 0px 0px 25px rgba(255, 0, 85, 0.7) !important;
+        transform: scale(1.02);
+    }
+    
+    /* Status Box & Cards (Dark Blue/Black tint with Red/Blue glows) */
+    .stStatusWidget, div[data-testid="stNotification"] {
+        background-color: #161b22 !important;
+        border-left: 5px solid #ff0055 !important;
+        color: #ffffff !important;
+    }
+    
+    /* Metric Cards Customization */
+    div[data-testid="stMetricSimpleValue"] {
+        color: #00d2ff !important;
+        font-size: 28px !important;
+        font-weight: bold !important;
+    }
+    
+    /* Horizontal Rule */
+    hr {
+        border: 0;
+        height: 1px;
+        background: linear-gradient(to right, #ff0055, #00d2ff, transparent) !important;
+        margin-bottom: 25px !important;
+    }
+    </style>
+""", unsafe_allow_html=pydantic_core if 'pydantic_core' in locals() else True)
 
 # Load environment variables
 load_dotenv()
@@ -28,14 +92,14 @@ try:
     db = client['EcoTraceDB']
     collection = db['SupplyChainLogs']
     client.admin.command('ping')
-    db_status = "✅ Live Database Connection Established!"
+    db_status = "🔵 System Status: Cloud Database Connection Secured."
 except Exception as e:
-    db_status = f"❌ Database Connection Offline: {e}"
+    db_status = f"🔴 System Status: Database Offline ({e})"
 
 # --- STREAMLIT UI ---
 st.title("🌿 EcoTrace AI: Multi-Modal Sustainable Supply Chain Agent")
-st.caption("⚡ Powered by Gemini 1.5 Pro & MongoDB Atlas Cloud")
-st.markdown("---")
+st.caption("⚡ Premium Cyber-Theme Edition | Powered by Gemini 1.5 Pro & MongoDB Atlas")
+st.markdown("<hr>", unsafe_allow_html=True)
 
 # Main Dashboard Layout
 col1, col2 = st.columns([1, 2])
@@ -43,21 +107,17 @@ col1, col2 = st.columns([1, 2])
 with col1:
     st.header("📍 Route & Telemetry Input")
     
-    # Basic Info
     shipment_id = st.text_input("Shipment Tracking ID", value="ECO-TR-2026-X8")
     vehicle_type = st.selectbox("Logistics Mode (Vehicle Type)", ["Truck (Heavy Duty)", "Train (Freight)", "Cargo Ship", "Plane (Air Freight)"])
     
-    # Location Tracking Feature
     st.subheader("🌐 Location Tracing")
     start_loc = st.text_input("Source Location (Origin)", value="New Delhi, India")
     end_loc = st.text_input("Destination Location", value="Mumbai Port, India")
     
-    # Live Telemetry Metrics
     st.subheader("📊 Live Telemetry")
     distance_km = st.number_input("Total Distance (KM)", min_value=1.0, value=1400.0)
     payload_weight_tons = st.number_input("Payload Cargo Weight (Tons)", min_value=0.1, value=18.5)
     
-    # Dynamic calculations for extra features
     speed_kmh = 60 if "Truck" in vehicle_type else (45 if "Train" in vehicle_type else (35 if "Ship" in vehicle_type else 700))
     estimated_hours = distance_km / speed_kmh
     
@@ -65,14 +125,13 @@ with col1:
 
 with col2:
     st.header("📈 Intelligent Agent Analytics")
-    st.info(db_status)
+    st.markdown(f"<div style='color:#00d2ff; font-weight:bold; margin-bottom:10px;'>{db_status}</div>", unsafe_allow_html=True)
     
-    # Show dynamic route tracking layout before submission
-    st.status(f"🗺️ **Active Route Registered:** From `{start_loc}` to `{end_loc}` | ⏱️ **Est. Transit Time:** ~{estimated_hours:.1f} Hours")
+    st.info(f"🗺️ **Active Route Registered:** From `{start_loc}` to `{end_loc}` | ⏱️ **Est. Transit Time:** ~{estimated_hours:.1f} Hours")
     
     if submit_btn:
-        with st.spinner("Analyzing telemetry metrics & generating AI optimizations..."):
-            # Detailed Emission Factors (EF) kg CO2 per ton-km
+        with st.spinner("Analyzing telemetry metrics with Gemini 1.5 Pro..."):
+            # Detailed Emission Factors (EF)
             emission_factors = {
                 "truck (heavy duty)": 0.105,
                 "train (freight)": 0.025,
@@ -82,11 +141,9 @@ with col2:
             
             ef = emission_factors.get(vehicle_type.lower(), 0.1)
             calculated_emissions = distance_km * payload_weight_tons * ef
-            
-            # Smart Dynamic Fuel Estimation
             fuel_used_liters = (distance_km * 0.35) if "Truck" in vehicle_type else (distance_km * 0.15)
             
-            # Formulating MongoDB Document
+            # MongoDB Document Structure
             telemetry_document = {
                 "shipment_id": shipment_id,
                 "timestamp": datetime.datetime.now(datetime.UTC),
@@ -101,23 +158,21 @@ with col2:
                 "developer_credit": "Built for Google Cloud Rapid Agent Challenge"
             }
             
-            # Push logs to MongoDB Atlas
             if collection is not None:
                 try:
                     collection.insert_one(telemetry_document)
                     st.success(f"💾 **Secure Ledger Update:** Logged shipment `{shipment_id}` data securely to MongoDB Atlas!")
                 except Exception as db_err:
-                    st.warning(f"⚠️ Log saved locally, cloud sync failed: {db_err}")
+                    st.warning(f"⚠️ Local backup updated, Cloud sync delayed: {db_err}")
             
-            # Display Advanced KPIs in Columns
+            # Display Advanced KPIs
             kpi1, kpi2, kpi3 = st.columns(3)
-            kpi1.metric(label="Total Carbon Footprint", value=f"{calculated_emissions:,.2f} kg CO2", delta="Calculated", delta_color="inverse")
-            kpi2.metric(label="Estimated Fuel Consumption", value=f"{fuel_used_liters:,.1f} Liters", delta="Eco-Route Opt")
-            kpi3.metric(label="Transit Duration Status", value=f"{estimated_hours:.1f} Hours", delta="On Schedule")
+            kpi1.metric(label="Total Carbon Footprint", value=f"{calculated_emissions:,.2f} kg CO2")
+            kpi2.metric(label="Estimated Fuel Consumption", value=f"{fuel_used_liters:,.1f} Liters")
+            kpi3.metric(label="Transit Duration Status", value=f"{estimated_hours:.1f} Hours")
             
-            # Generative AI Recommendations UI
+            # Generative AI Recommendations
             st.subheader("💡 Gemini Multi-Modal Sustainability Insights")
-            
             ai_insights = (
                 f"🌱 **Multi-Modal Traffic Advice:** For the route from **{start_loc}** to **{end_loc}**, shifting carbon-heavy cargo from {vehicle_type} to a dedicated rail corridor will instantly prevent approx. **{(calculated_emissions * 0.6):.1f} kg of CO2** from entering the atmosphere.\n\n"
                 "💰 **Financial & Credit Impact:** Implementing predictive speed monitoring across this route can reduce fuel usage by 8.5%, saving operational costs and qualifying this specific shipment for **2.4 Carbon Offset Credits**.\n\n"
@@ -125,4 +180,4 @@ with col2:
             )
             st.write(ai_insights)
     else:
-        st.warning("📥 Adjust input telemetry settings on the left sidebar and trigger the agent for analytics.")
+        st.write("📥 Adjust input telemetry settings on the left sidebar and trigger the agent for analytics.")
