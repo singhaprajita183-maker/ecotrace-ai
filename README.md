@@ -9,24 +9,26 @@ AI Agent tracking supply chain carbon footprints using Google Cloud Vertex AI (G
 
 ## 🏗️ System Architecture Blueprint
 
-![EcoTrace AI Architecture](https://res.cloudinary.com/practicaldev/image/fetch/s--V_S6Wv3V--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/http%3A%2F%2Fgoogleusercontent.com%2Fimage_generation_content%2F1)
+<img width="1536" height="1024" alt="ec" src="https://github.com/user-attachments/assets/77a12a05-3632-4e8f-8824-fd7e4cac88b0" />
+
 
 ### 📊 Blueprint Explanation & System Flow:
 
-The entire EcoTrace AI infrastructure processes unstructured, multi-modal logistics data through a 3-stage intelligence pipeline to generate proactive green actions:
+EcoTrace AI operates as an automated enterprise sustainability agent, executing a unified 3-stage pipeline to analyze logistics operations and mitigate carbon spikes:
 
 1. **📂 Stage 1: Multi-Modal Data Ingestion (Vertex AI Vision)**
-   * **Visual Cargo Tracking:** Processes physical cargo container photos to identify freight vehicle types and transit conditions.
-   * **Vernacular OCR Processing:** Automatically scans and reads unformatted freight bills, fuel receipts, and multi-language shipping documents.
-   * **Spatial Telematics:** Ingests live GPS logs and maritime routing updates to track real-time travel parameters.
+   * **Visual Cargo Ingestion:** Scans physical cargo container photographs to catalog transport modes, freight dimensions, and container integrity.
+   * **Vernacular OCR Decoding:** Automatically processes unstructured freight papers, fuel slips, and multi-language logistics receipts to extract core shipping parameters.
+   * **Real-Time Telematics:** Captures live GPS logs and maritime routing updates to track continuous distance metrics.
 
 2. **🤖 Stage 2: Core Gemini 1.5 Pro Reasoning Hub**
-   * **Data Structuring:** Gemini 1.5 Pro translates chaotic text and visual inputs into clean, unified JSON data arrays.
-   * **Carbon Footprint Calculus:** Dynamically maps out the mathematical emissions model:
+   * **Data Structuring Matrix:** Gemini 1.5 Pro synthesizes unstructured textual and visual arrays into structured JSON objects.
+   * **Automated Emissions Calculus:** Feeds the dynamic mathematical model to evaluate real-time carbon footprints:
      $$E = \sum_{i=1}^{n} (W_i \times D_i \times C_i)$$
-     *(Where $W$ = Cargo Weight, $D$ = Distance traveled, and $C$ = Transport Carbon Intensity Coefficient).*
+     *(Where $W$ = Cargo Weight, $D$ = Distance traveled, and $C$ = Mode-specific Carbon Intensity Coefficient).*
 
-3. **🛰️ Stage 3: Agentic Action & Storage Layer (MongoDB Atlas & BigQuery)**
-   * **Decentralized Storage:** High-density logistics graphs and multi-modal tracking records are securely archived in **MongoDB Atlas**.
-   * **Eco-Shield Alerts:** If the estimated carbon output breaches eco-compliance thresholds, the agent automatically triggers a **Supplier Violation Flag**.
-   * **Proactive Green Routing:** Dynamically suggests optimized "Green Corridors" via BigQuery ML to minimize corporate carbon spikes.
+3. **🛰️ Stage 3: Agentic Action & Storage Layer (MongoDB Atlas & Looker)**
+   * **Decentralized Logistics Graph:** High-density transactional ledgers and multi-modal tracking logs are stored instantly within **MongoDB Atlas**.
+   * **Eco-Shield Protocols:** If a supplier's carbon footprint exceeds predefined localized compliance thresholds, the agent triggers an automated **Supplier Eco-Compliance Flag**.
+   * **Enterprise Rerouting Alerts:** Dynamically pushes optimized "Green Corridor" recommendations directly to company dashboards via Looker to neutralize emission surges.
+   
