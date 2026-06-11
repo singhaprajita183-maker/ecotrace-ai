@@ -49,11 +49,26 @@ st.markdown("""
         transform: scale(1.02);
     }
     
-    /* Status Box & Cards (Dark Blue/Black tint with Red/Blue glows) */
-    .stStatusWidget, div[data-testid="stNotification"] {
-        background-color: #161b22 !important;
-        border-left: 5px solid #ff0055 !important;
-        color: #ffffff !important;
+    /* Custom Neon Red Alert Border for High Emissions */
+    .critical-alert {
+        background-color: #1a1115 !important;
+        border: 2px solid #ff0055 !important;
+        border-radius: 8px;
+        padding: 15px;
+        color: #ff4d88 !important;
+        box-shadow: 0px 0px 15px rgba(255, 0, 85, 0.3);
+        margin-bottom: 20px;
+    }
+
+    /* Architecture Box */
+    .arch-box {
+        background-color: #11161d !important;
+        border: 1px dashed #00d2ff !important;
+        padding: 15px;
+        font-family: 'Courier New', Courier, monospace;
+        color: #00d2ff;
+        border-radius: 8px;
+        margin-bottom: 25px;
     }
     
     /* Metric Cards Customization */
@@ -71,7 +86,7 @@ st.markdown("""
         margin-bottom: 25px !important;
     }
     </style>
-""", unsafe_allow_html=pydantic_core if 'pydantic_core' in locals() else True)
+""", unsafe_allow_html=True)
 
 # Load environment variables
 load_dotenv()
@@ -101,6 +116,16 @@ st.title("🌿 EcoTrace AI: Multi-Modal Sustainable Supply Chain Agent")
 st.caption("⚡ Premium Cyber-Theme Edition | Powered by Gemini 1.5 Pro & MongoDB Atlas")
 st.markdown("<hr>", unsafe_allow_html=True)
 
+# --- AGENTBRD STYLE ARCHITECTURE INTRO DESIGN ---
+st.subheader("🤖 System Enterprise Architecture Pipeline")
+st.markdown("""
+<div class='arch-box'>
+[📥 MULTI-MODAL INGESTION LAYER] ──► [🧠 GEMINI REASONING CORE] ──► [🛰️ ACTION & ATALAS STORAGE]
+<br>├── Scans Cargo Photos & Receipts &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Real-Time Emissions Calculus &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── MongoDB Ledger Sync
+<br>└── Live GPS Telemetry Pipeline &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Context-Aware Optimization &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Looker Green Corridor Push
+</div>
+""", unsafe_allow_html=True)
+
 # Main Dashboard Layout
 col1, col2 = st.columns([1, 2])
 
@@ -117,6 +142,10 @@ with col1:
     st.subheader("📊 Live Telemetry")
     distance_km = st.number_input("Total Distance (KM)", min_value=1.0, value=1400.0)
     payload_weight_tons = st.number_input("Payload Cargo Weight (Tons)", min_value=0.1, value=18.5)
+    
+    # Emission Threshold Settings for Eco-Shield Guardrails
+    st.subheader("🛡️ Eco-Shield Compliance Settings")
+    threshold_limit = st.number_input("Max Allowed CO2 Threshold (kg)", min_value=100.0, value=1500.0)
     
     speed_kmh = 60 if "Truck" in vehicle_type else (45 if "Train" in vehicle_type else (35 if "Ship" in vehicle_type else 700))
     estimated_hours = distance_km / speed_kmh
@@ -142,6 +171,18 @@ with col2:
             ef = emission_factors.get(vehicle_type.lower(), 0.1)
             calculated_emissions = distance_km * payload_weight_tons * ef
             fuel_used_liters = (distance_km * 0.35) if "Truck" in vehicle_type else (distance_km * 0.15)
+            
+            # --- ECO-SHIELD COMPLIANCE GUARDRAIL ALERT ---
+            if calculated_emissions > threshold_limit:
+                st.markdown(f"""
+                <div class='critical-alert'>
+                    <strong>⚠️ ECO-SHIELD CRITICAL COMPLIANCE FLAG CRITICAL:</strong><br>
+                    Carbon footprint ({calculated_emissions:,.2f} kg) exceeds the maximum allowed corporate threshold limit of {threshold_limit} kg!
+                    Immediate intervention or route optimization required.
+                </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.success("✅ **Compliance Status:** Shipment emissions are within corporate safety limits.")
             
             # MongoDB Document Structure
             telemetry_document = {
