@@ -1,34 +1,28 @@
-# ecotrace-ai
-AI Agent tracking supply chain carbon footprints using Gemini 1.5 Pro and MongoDB Atlas.
-<img width="1536" height="1024" alt="aa" src="https://github.com/user-attachments/assets/604b5a74-2857-40f8-97f6-76cb7c24d2dd" />
-# 📦 EcoTrace AI: Multi-Modal Sustainable Supply Chain Agent
+# 🌿 EcoTrace AI ...
 
-AI Agent tracking supply chain carbon footprints using Google Cloud Vertex AI (Gemini 1.5 Pro) and MongoDB Atlas.
+[Developer Profile Box]
 
 ---
 
 ## 🏗️ System Architecture Blueprint
+Here is the high-level system design explaining how Gemini 1.5 Pro and MongoDB Atlas power the real-time agent pipeline:
 
-<img width="1536" height="1024" alt="ec" src="https://github.com/user-attachments/assets/77a12a05-3632-4e8f-8824-fd7e4cac88b0" />
+<img width="1024" height="682" alt="1" src="https://github.com/user-attachments/assets/4d4d01b9-486e-4fe9-89f8-03e82d9b716a" />
 
 
-### 📊 Blueprint Explanation & System Flow:
+---
 
-EcoTrace AI operates as an automated enterprise sustainability agent, executing a unified 3-stage pipeline to analyze logistics operations and mitigate carbon spikes:
+## 📸 Project Media & Dashboard Interface
+Check out the live execution states of the enterprise sustainability application:
 
-1. **📂 Stage 1: Multi-Modal Data Ingestion (Vertex AI Vision)**
-   * **Visual Cargo Ingestion:** Scans physical cargo container photographs to catalog transport modes, freight dimensions, and container integrity.
-   * **Vernacular OCR Decoding:** Automatically processes unstructured freight papers, fuel slips, and multi-language logistics receipts to extract core shipping parameters.
-   * **Real-Time Telematics:** Captures live GPS logs and maritime routing updates to track continuous distance metrics.
+### 🔒 1. AgentBRD Enterprise Security Gateway
+This secure layer handles identity verification before launching the core analytics system.
 
-2. **🤖 Stage 2: Core Gemini 1.5 Pro Reasoning Hub**
-   * **Data Structuring Matrix:** Gemini 1.5 Pro synthesizes unstructured textual and visual arrays into structured JSON objects.
-   * **Automated Emissions Calculus:** Feeds the dynamic mathematical model to evaluate real-time carbon footprints:
-     $$E = \sum_{i=1}^{n} (W_i \times D_i \times C_i)$$
-     *(Where $W$ = Cargo Weight, $D$ = Distance traveled, and $C$ = Mode-specific Carbon Intensity Coefficient).*
+<img width="1024" height="682" alt="2" src="https://github.com/user-attachments/assets/c895c3b9-19d3-4a9d-a6dc-02f5505a7338" />
 
-3. **🛰️ Stage 3: Agentic Action & Storage Layer (MongoDB Atlas & Looker)**
-   * **Decentralized Logistics Graph:** High-density transactional ledgers and multi-modal tracking logs are stored instantly within **MongoDB Atlas**.
-   * **Eco-Shield Protocols:** If a supplier's carbon footprint exceeds predefined localized compliance thresholds, the agent triggers an automated **Supplier Eco-Compliance Flag**.
-   * **Enterprise Rerouting Alerts:** Dynamically pushes optimized "Green Corridor" recommendations directly to company dashboards via Looker to neutralize emission surges.
-   
+
+### 📊 2. Advanced Operations Control Center & Global Live Map
+The main dashboard visualizing multi-modal inputs, dynamic emissions calculus, and live geolocation maps.
+
+
+<img width="1024" height="682" alt="3" src="https://github.com/user-attachments/assets/fb4bca4c-4c3b-48e7-996b-12981f4e753b" />
